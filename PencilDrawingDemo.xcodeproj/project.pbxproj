@@ -434,6 +434,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PencilDrawingDemo/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Drawing Demo";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your Photo Library to save your drawings as pictures.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = DrawViewController;
@@ -464,6 +465,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "PencilDrawingDemo/Supporting Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Drawing Demo";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your Photo Library to save your drawings as pictures.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = DrawViewController;
