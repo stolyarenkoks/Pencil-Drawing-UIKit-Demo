@@ -59,10 +59,9 @@ enum Const {
     // MARK: - ViewControllers
 
     enum Draw {
-        static let dragButtonTitle = "Drag"
-        static let drawButtonTitle = "Draw"
+        static let drawTitle = "Draw"
 
-        static let minZoomScale = 1.0
+        static let maxCanvasWidth: CGFloat = 1_200.0
         static let maxZoomScale = 5.0
     }
 }

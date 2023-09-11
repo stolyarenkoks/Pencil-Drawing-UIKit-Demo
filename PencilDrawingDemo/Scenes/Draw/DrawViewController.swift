@@ -25,6 +25,9 @@ class DrawViewController: UIViewController {
 
     @IBOutlet private var saveBarButtonItem: UIBarButtonItem!
     @IBOutlet private var inputDeviceBarButtonItem: UIBarButtonItem!
+    @IBOutlet private var undoBarButtonItem: UIBarButtonItem!
+    @IBOutlet private var redoBarButtonItem: UIBarButtonItem!
+    @IBOutlet private var toolPickerBarButtonItem: UIBarButtonItem!
     @IBOutlet private var canvasView: PKCanvasView!
 
     // MARK: - Private Properties
@@ -38,7 +41,15 @@ class DrawViewController: UIViewController {
     private var isPencilOnly = false {
         didSet {
             canvasView.drawingPolicy = isPencilOnly ? .pencilOnly : .anyInput
-            inputDeviceBarButtonItem.title = isPencilOnly ? Const.Draw.dragButtonTitle : Const.Draw.drawButtonTitle
+            inputDeviceBarButtonItem.image = isPencilOnly ? UIImage(systemName: "pencil") : UIImage(systemName: "hand.draw")
+        }
+    }
+
+    private var isToolPickerActive = false {
+        didSet {
+            _ = isToolPickerActive ? canvasView.becomeFirstResponder() : canvasView.resignFirstResponder()
+            let toolImage = isToolPickerActive ? UIImage(systemName: "pencil.circle.fill") : UIImage(systemName: "pencil.circle")
+            toolPickerBarButtonItem.image = toolImage
         }
     }
 
@@ -85,10 +96,28 @@ class DrawViewController: UIViewController {
         setupView()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        updateContentSizeForDrawing()
+    }
+
     // MARK: - Actions
 
     @IBAction private func inputDeviceButtonTapped(_ sender: Any) {
         isPencilOnly.toggle()
+    }
+
+    @IBAction private func undoButtonTapped(_ sender: Any) {
+        canvasView.undoManager?.undo()
+    }
+
+    @IBAction private func redoButtonTapped(_ sender: Any) {
+        canvasView.undoManager?.redo()
+    }
+
+    @IBAction private func toolPickerButtonTapped(_ sender: Any) {
+        isToolPickerActive.toggle()
     }
 
     @IBAction private func saveButtonTapped(_ sender: Any) {
@@ -98,22 +127,23 @@ class DrawViewController: UIViewController {
     // MARK: - Private Methods
 
     private func setupView() {
+        title = Const.Draw.drawTitle
+        view.backgroundColor = .systemGray6
+
         isPencilOnly = false
+        isToolPickerActive = false
+
+        undoBarButtonItem.image = UIImage(systemName: "arrow.uturn.backward")
+        redoBarButtonItem.image = UIImage(systemName: "arrow.uturn.forward")
 
         setupToolPicker()
         setupCanvas()
     }
 
     private func setupCanvas() {
-        canvasView.minimumZoomScale = Const.Draw.minZoomScale
-        canvasView.maximumZoomScale = Const.Draw.maxZoomScale
-        canvasView.zoomScale = Const.Draw.minZoomScale
-
         canvasView.delegate = self
         canvasView.drawing = drawing
-
         canvasView.alwaysBounceVertical = true
-        canvasView.becomeFirstResponder()
     }
 
     private func setupToolPicker() {
@@ -134,6 +164,23 @@ class DrawViewController: UIViewController {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+
+    func updateContentSizeForDrawing() {
+        let canvasScale = canvasView.bounds.width / Const.Draw.maxCanvasWidth
+        canvasView.maximumZoomScale = Const.Draw.maxZoomScale
+        canvasView.minimumZoomScale = canvasScale
+        canvasView.zoomScale = canvasScale
+
+        let contentHeight: CGFloat
+        if !canvasView.drawing.bounds.isNull {
+            let extendedHeight = (canvasView.drawing.bounds.maxY) * canvasView.zoomScale
+            contentHeight = max(canvasView.bounds.height, extendedHeight)
+        } else {
+            contentHeight = canvasView.bounds.height
+        }
+
+        canvasView.contentSize = CGSize(width: Const.Draw.maxCanvasWidth * canvasView.zoomScale, height: contentHeight)
     }
 }
 

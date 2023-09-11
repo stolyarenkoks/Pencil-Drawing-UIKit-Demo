@@ -19,4 +19,27 @@ class NavigationController: UINavigationController {
     override var childForStatusBarStyle: UIViewController? {
         return topViewController
     }
+
+    // MARK: - ViewController Lifecycle Methods
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupUI()
+    }
+
+    // MARK: - Setup Methods
+
+    func setupUI() {
+        navigationBar.isTranslucent = true
+
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithDefaultBackground()
+        navBarAppearance.backgroundColor = .systemGray6
+
+        navigationBar.standardAppearance = navBarAppearance
+        navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationBar.compactAppearance = navBarAppearance
+        navigationBar.compactScrollEdgeAppearance = navBarAppearance
+    }
 }
