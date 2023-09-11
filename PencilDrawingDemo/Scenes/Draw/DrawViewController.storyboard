@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="F2H-rH-Lsj">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22129"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Title-->
+        <scene sceneID="i0m-iF-p80">
+            <objects>
+                <viewController storyboardIdentifier="DrawViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="F2H-rH-Lsj" customClass="DrawViewController" customModule="PencilDrawingDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2ev-QE-M02">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EBK-2K-Ykh" customClass="PKCanvasView">
+                                <rect key="frame" x="0.0" y="91" width="390" height="670"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Fhz-5B-qaF"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EBK-2K-Ykh" firstAttribute="top" secondItem="Fhz-5B-qaF" secondAttribute="top" id="5Nf-GJ-rmb"/>
+                            <constraint firstItem="EBK-2K-Ykh" firstAttribute="leading" secondItem="Fhz-5B-qaF" secondAttribute="leading" id="DAG-qo-YFL"/>
+                            <constraint firstItem="Fhz-5B-qaF" firstAttribute="bottom" secondItem="EBK-2K-Ykh" secondAttribute="bottom" id="KYx-yh-2cC"/>
+                            <constraint firstItem="Fhz-5B-qaF" firstAttribute="trailing" secondItem="EBK-2K-Ykh" secondAttribute="trailing" id="Rvw-Lc-xLA"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="Hq1-Dc-AS6">
+                        <barButtonItem key="leftBarButtonItem" title="Pencil" id="GYD-rF-58T">
+                            <connections>
+                                <action selector="inputDeviceButtonTapped:" destination="F2H-rH-Lsj" id="mYS-c6-Qe6"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="bEG-PD-Z3Y">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="F2H-rH-Lsj" id="qBa-lL-SZN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="canvasView" destination="EBK-2K-Ykh" id="xiC-Im-kaU"/>
+                        <outlet property="inputDeviceBarButtonItem" destination="GYD-rF-58T" id="ufi-mE-erA"/>
+                        <outlet property="saveBarButtonItem" destination="bEG-PD-Z3Y" id="3O2-YN-EMe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FyU-Lz-LgX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-7" y="147"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
