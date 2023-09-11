@@ -9,9 +9,9 @@
 //  with inspiration from http://clean-swift.com
 //
 
-import UIKit
 import PencilKit
 import PhotosUI
+import UIKit
 
 // MARK: - DrawDisplayLogic Protocol
 

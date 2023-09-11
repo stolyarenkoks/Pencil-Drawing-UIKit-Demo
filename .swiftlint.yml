@@ -1,5 +1,5 @@
 included:
-  - Neobank
+  - PencilDrawingDemo
 
 analyzer_rules:
   - unused_declaration
@@ -68,7 +68,6 @@ custom_rules:
 disabled_rules:
   - identifier_name
   - force_cast
-  - void_function_in_ternary
 
 type_body_length:
   warning: 400
