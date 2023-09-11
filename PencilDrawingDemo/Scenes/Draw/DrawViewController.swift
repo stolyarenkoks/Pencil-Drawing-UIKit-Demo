@@ -80,10 +80,6 @@ class DrawViewController: UIViewController {
 
     // MARK: - View Lifecycle Properties
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-
     override var prefersHomeIndicatorAutoHidden: Bool {
         return true
     }
