@@ -13,7 +13,10 @@ import UIKit
 
 // MARK: - DrawPresentationLogic Protocol
 
-protocol DrawPresentationLogic {}
+protocol DrawPresentationLogic {
+    func presentImageSavingSuccessfully()
+    func presentImageSavingFailed(response: Draw.Response.SavingError)
+}
 
 // MARK: - DrawPresenter
 
@@ -26,4 +29,25 @@ class DrawPresenter {
 
 // MARK: - DrawPresentationLogic Extension
 
-extension DrawPresenter: DrawPresentationLogic {}
+extension DrawPresenter: DrawPresentationLogic {
+
+    func presentImageSavingSuccessfully() {
+        let viewModel = Draw.DisplayData.SavingResult(title: "Your drawing has been saved successfully!",
+                                                      message: "Open your Photo Library to see the saved picture.")
+        viewController?.displaySavingResult(viewModel: viewModel)
+    }
+
+    func presentImageSavingFailed(response: Draw.Response.SavingError) {
+        let message: String
+        switch response.error.code {
+        case .accessRestricted, .accessUserDenied:
+            message = "Please open Settings and allow access to your Photo Library to save this drawing as an image."
+        default:
+            message = "Check out the detailed error: \(response.error.localizedDescription)."
+        }
+
+        let viewModel = Draw.DisplayData.SavingResult(title: "Your drawing was not saved!",
+                                                      message: message)
+        viewController?.displaySavingResult(viewModel: viewModel)
+    }
+}

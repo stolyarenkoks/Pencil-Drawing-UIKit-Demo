@@ -10,12 +10,13 @@
 //
 
 import PencilKit
-import PhotosUI
 import UIKit
 
 // MARK: - DrawDisplayLogic Protocol
 
-protocol DrawDisplayLogic: AnyObject {}
+protocol DrawDisplayLogic: AnyObject {
+    func displaySavingResult(viewModel: Draw.DisplayData.SavingResult)
+}
 
 // MARK: - DrawViewController
 
@@ -147,22 +148,7 @@ class DrawViewController: UIViewController {
         toolPicker.addObserver(canvasView)
     }
 
-    private func saveImage() {
-        guard let image = renderImage() else { return }
-        PHPhotoLibrary.shared().performChanges {
-            PHAssetChangeRequest.creationRequestForAsset(from: image)
-        }
-    }
-
-    private func renderImage() -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(canvasView.bounds.size, false, UIScreen.main.scale)
-        canvasView.drawHierarchy(in: canvasView.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
-
-    func updateContentSizeForDrawing() {
+    private func updateContentSizeForDrawing() {
         let canvasScale = canvasView.bounds.width / Const.Draw.maxCanvasWidth
         canvasView.maximumZoomScale = Const.Draw.maxZoomScale
         canvasView.minimumZoomScale = canvasScale
@@ -178,11 +164,36 @@ class DrawViewController: UIViewController {
 
         canvasView.contentSize = CGSize(width: Const.Draw.maxCanvasWidth * canvasView.zoomScale, height: contentHeight)
     }
+
+    private func saveImage() {
+        guard let image = renderImage() else { return }
+        let request = Draw.Request.DrawingInfo(image: image)
+        interactor?.saveDrawing(request: request)
+    }
+
+    private func renderImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(canvasView.bounds.size, false, UIScreen.main.scale)
+        canvasView.drawHierarchy(in: canvasView.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+
+    private func presentAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Done", style: .default))
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - DrawDisplayLogic Extension
 
-extension DrawViewController: DrawDisplayLogic {}
+extension DrawViewController: DrawDisplayLogic {
+
+    func displaySavingResult(viewModel: Draw.DisplayData.SavingResult) {
+        presentAlert(title: viewModel.title, message: viewModel.message)
+    }
+}
 
 // MARK: - PKCanvasViewDelegate Extension
 

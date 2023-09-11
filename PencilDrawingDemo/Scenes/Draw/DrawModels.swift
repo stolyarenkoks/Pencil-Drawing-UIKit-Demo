@@ -9,6 +9,7 @@
 //  with inspiration from http://clean-swift.com
 //
 
+import PhotosUI
 import UIKit
 
 // MARK: - Draw Enum
@@ -21,12 +22,28 @@ enum Draw {
 
 // MARK: - Draw Request Extension
 
-extension Draw.Request {}
+extension Draw.Request {
+
+    struct DrawingInfo {
+        let image: UIImage
+    }
+}
 
 // MARK: - Draw Response Extension
 
-extension Draw.Response {}
+extension Draw.Response {
+
+    struct SavingError {
+        let error: PHPhotosError
+    }
+}
 
 // MARK: - Draw DisplayData Extension
 
-extension Draw.DisplayData {}
+extension Draw.DisplayData {
+
+    struct SavingResult {
+        let title: String
+        let message: String
+    }
+}

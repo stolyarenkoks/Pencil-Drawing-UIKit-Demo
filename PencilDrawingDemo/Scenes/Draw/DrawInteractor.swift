@@ -9,11 +9,14 @@
 //  with inspiration from http://clean-swift.com
 //
 
+import PhotosUI
 import UIKit
 
 // MARK: - DrawBusinessLogic Protocol
 
-protocol DrawBusinessLogic {}
+protocol DrawBusinessLogic {
+    func saveDrawing(request: Draw.Request.DrawingInfo)
+}
 
 // MARK: - DrawDataStore Protocol
 
@@ -31,4 +34,21 @@ class DrawInteractor: DrawDataStore {
 
 // MARK: - DrawBusinessLogic Extension
 
-extension DrawInteractor: DrawBusinessLogic {}
+extension DrawInteractor: DrawBusinessLogic {
+
+    func saveDrawing(request: Draw.Request.DrawingInfo) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: request.image)
+        }, completionHandler: { [weak self] _, error in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                if let error = error as? PHPhotosError {
+                    let response = Draw.Response.SavingError(error: error)
+                    self.presenter?.presentImageSavingFailed(response: response)
+                    return
+                }
+                self.presenter?.presentImageSavingSuccessfully()
+            }
+        })
+    }
+}
