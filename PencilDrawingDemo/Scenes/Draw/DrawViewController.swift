@@ -181,7 +181,7 @@ class DrawViewController: UIViewController {
 
     private func presentAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Done", style: .default))
+        alert.addAction(UIAlertAction(title: Const.General.doneButtonTitle, style: .default))
         present(alert, animated: true, completion: nil)
     }
 }

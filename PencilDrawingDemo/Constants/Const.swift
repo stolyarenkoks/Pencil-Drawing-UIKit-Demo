@@ -41,6 +41,8 @@ enum Const {
     enum General {
         static let reuseIdentifier = "ReuseIdentifier"
         static let newLineSymbol = "\n"
+
+        static let doneButtonTitle = "Done"
     }
 
     // MARK: - Models
@@ -63,5 +65,15 @@ enum Const {
 
         static let maxCanvasWidth: CGFloat = 1_200.0
         static let maxZoomScale = 5.0
+
+        static let successAlertTitle = "Your drawing has been saved successfully!"
+        static let successAlertMessage = "Open your Photo Library to see the saved picture."
+
+        static let failedAlertTitle = "Your drawing was not saved!"
+        static let failedAlertAcessDeniedMessage = "Please allow access to your Photo Library to save this drawing as an image."
+
+        static func failedAlertDefaultMessage(errorDescription: String) -> String {
+            "Check out the detailed error: \(errorDescription)."
+        }
     }
 }
