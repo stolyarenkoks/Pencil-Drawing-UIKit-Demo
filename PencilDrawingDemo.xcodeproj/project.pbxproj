@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C45AC5512AB2EE7400F196D5 /* NavigationToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45AC5502AB2EE7400F196D5 /* NavigationToolbarView.swift */; };
 		C45AC5532AB2EE8100F196D5 /* NavigationToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45AC5522AB2EE8100F196D5 /* NavigationToolbarView.xib */; };
+		C45AC5562AB30BF600F196D5 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45AC5552AB30BF600F196D5 /* UIView+Extensions.swift */; };
+		C45AC5582AB30C5E00F196D5 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45AC5572AB30C5E00F196D5 /* UIStackView+Extensions.swift */; };
 		C49799D42AAEF62B0003B794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49799D32AAEF62B0003B794 /* AppDelegate.swift */; };
 		C49799D62AAEF62B0003B794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49799D52AAEF62B0003B794 /* SceneDelegate.swift */; };
 		C49799DD2AAEF62C0003B794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49799DC2AAEF62C0003B794 /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		C45AC5502AB2EE7400F196D5 /* NavigationToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToolbarView.swift; sourceTree = "<group>"; };
 		C45AC5522AB2EE8100F196D5 /* NavigationToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationToolbarView.xib; sourceTree = "<group>"; };
+		C45AC5552AB30BF600F196D5 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		C45AC5572AB30C5E00F196D5 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		C49799D02AAEF62B0003B794 /* PencilDrawingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PencilDrawingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49799D32AAEF62B0003B794 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C49799D52AAEF62B0003B794 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 		C4DFA9732AAF1A0E00790B48 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C45AC5552AB30BF600F196D5 /* UIView+Extensions.swift */,
+				C45AC5572AB30C5E00F196D5 /* UIStackView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,10 +302,12 @@
 			files = (
 				C45AC5512AB2EE7400F196D5 /* NavigationToolbarView.swift in Sources */,
 				C4DFA96A2AAF19A700790B48 /* NavigationController.swift in Sources */,
+				C45AC5582AB30C5E00F196D5 /* UIStackView+Extensions.swift in Sources */,
 				C4DFA9972AAF1C5500790B48 /* DrawViewController.swift in Sources */,
 				C4DFA9942AAF1C5500790B48 /* DrawRouter.swift in Sources */,
 				C4DFA9982AAF1C5500790B48 /* DrawInteractor.swift in Sources */,
 				C4DFA9922AAF1C5500790B48 /* DrawPresenter.swift in Sources */,
+				C45AC5562AB30BF600F196D5 /* UIView+Extensions.swift in Sources */,
 				C49799D42AAEF62B0003B794 /* AppDelegate.swift in Sources */,
 				C4DFA9962AAF1C5500790B48 /* DrawModels.swift in Sources */,
 				C4DFA9932AAF1C5500790B48 /* DrawWorker.swift in Sources */,
