@@ -1,5 +1,5 @@
-# Pencil Drawing UIKit Demo like Procreate Pocket
-An example of drawing application using the PencilKit framework similar to the Procreate Pocket App.
+# Pencil Drawing UIKit Demo like Sketchbook
+An example of drawing application using the PencilKit framework similar to the Sketchbook App.
 Developed entirely natively using Swift and UIKit based on Clean Swift Architecture.
 
 ![Preview](preview.png)
