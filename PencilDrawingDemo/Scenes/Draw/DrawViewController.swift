@@ -24,11 +24,8 @@ class DrawViewController: UIViewController {
 
     // MARK: - Outlets
 
-    @IBOutlet private var saveBarButtonItem: UIBarButtonItem!
-    @IBOutlet private var inputDeviceBarButtonItem: UIBarButtonItem!
-    @IBOutlet private var undoBarButtonItem: UIBarButtonItem!
-    @IBOutlet private var redoBarButtonItem: UIBarButtonItem!
-    @IBOutlet private var toolPickerBarButtonItem: UIBarButtonItem!
+    @IBOutlet private var navigationToolbarViewContainer: UIView!
+    @IBOutlet private var navigationToolbarViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private var canvasView: PKCanvasView!
 
     // MARK: - Private Properties
@@ -36,21 +33,40 @@ class DrawViewController: UIViewController {
     private var interactor: DrawBusinessLogic?
     private var router: (DrawRoutingLogic & DrawDataPassing)?
 
+    private var navigationToolbarView: NavigationToolbarView?
+
+    private let saveButton = UIButton(type: .system)
+    private let inputDeviceButton = UIButton(type: .system)
+    private let undoButton = UIButton(type: .system)
+    private let redoButton = UIButton(type: .system)
+    private let toolPickerButton = UIButton(type: .system)
+    private let navigationToolbarButton = UIButton(type: .system)
+
     private var drawing = PKDrawing()
     private let toolPicker = PKToolPicker()
 
     private var isPencilOnly = false {
         didSet {
             canvasView.drawingPolicy = isPencilOnly ? .pencilOnly : .anyInput
-            inputDeviceBarButtonItem.image = isPencilOnly ? UIImage(systemName: "pencil") : UIImage(systemName: "hand.draw")
+            let image = isPencilOnly ? UIImage(systemName: "pencil") : UIImage(systemName: "hand.draw")
+            inputDeviceButton.setImage(image, for: .normal)
         }
     }
 
     private var isToolPickerActive = false {
         didSet {
             _ = isToolPickerActive ? canvasView.becomeFirstResponder() : canvasView.resignFirstResponder()
-            let toolImage = isToolPickerActive ? UIImage(systemName: "pencil.circle.fill") : UIImage(systemName: "pencil.circle")
-            toolPickerBarButtonItem.image = toolImage
+            let image = isToolPickerActive ? UIImage(systemName: "pencil.circle.fill") : UIImage(systemName: "pencil.circle")
+            toolPickerButton.setImage(image, for: .normal)
+        }
+    }
+
+    private var isNavigationToolbarActive = false {
+        didSet {
+            let image = isNavigationToolbarActive ? UIImage(systemName: "chevron.down.circle.fill") :
+            UIImage(systemName: "chevron.down.circle")
+            navigationToolbarButton.setImage(image, for: .normal)
+            animateNavigationToolbarView(show: isNavigationToolbarActive)
         }
     }
 
@@ -101,24 +117,28 @@ class DrawViewController: UIViewController {
 
     // MARK: - Actions
 
-    @IBAction private func inputDeviceButtonTapped(_ sender: Any) {
+    @objc private func inputDeviceButtonTapped() {
         isPencilOnly.toggle()
     }
 
-    @IBAction private func undoButtonTapped(_ sender: Any) {
+    @objc private func undoButtonTapped() {
         canvasView.undoManager?.undo()
     }
 
-    @IBAction private func redoButtonTapped(_ sender: Any) {
+    @objc private func redoButtonTapped() {
         canvasView.undoManager?.redo()
     }
 
-    @IBAction private func toolPickerButtonTapped(_ sender: Any) {
+    @objc private func toolPickerButtonTapped() {
         isToolPickerActive.toggle()
     }
 
-    @IBAction private func saveButtonTapped(_ sender: Any) {
+    @objc private func saveButtonTapped() {
         saveImage()
+    }
+
+    @objc private func navigationToolbarButtonTapped() {
+        isNavigationToolbarActive.toggle()
     }
 
     // MARK: - Private Methods
@@ -130,11 +150,68 @@ class DrawViewController: UIViewController {
         isPencilOnly = false
         isToolPickerActive = false
 
-        undoBarButtonItem.image = UIImage(systemName: "arrow.uturn.backward")
-        redoBarButtonItem.image = UIImage(systemName: "arrow.uturn.forward")
-
+        setupNavigationView()
+        setupNavigationButtons()
         setupToolPicker()
         setupCanvas()
+    }
+
+    private func setupNavigationView() {
+        navigationToolbarView = NavigationToolbarView.instantiate()
+        navigationToolbarView?.adjustFrame(inView: navigationToolbarViewContainer)
+        navigationToolbarViewContainer?.isHidden = true
+        navigationToolbarViewTopConstraint.constant = -Const.NavigationToolbarView.height
+    }
+
+    private func setupNavigationButtons() {
+        inputDeviceButton.setImage(UIImage(systemName: "hand.draw"), for: .normal)
+        inputDeviceButton.addTarget(self, action: #selector(inputDeviceButtonTapped), for: .touchUpInside)
+        undoButton.setImage(UIImage(systemName: "arrow.uturn.backward"), for: .normal)
+        undoButton.addTarget(self, action: #selector(undoButtonTapped), for: .touchUpInside)
+        redoButton.setImage(UIImage(systemName: "arrow.uturn.forward"), for: .normal)
+        redoButton.addTarget(self, action: #selector(redoButtonTapped), for: .touchUpInside)
+
+        toolPickerButton.setImage(UIImage(systemName: "pencil.circle"), for: .normal)
+        toolPickerButton.addTarget(self, action: #selector(toolPickerButtonTapped), for: .touchUpInside)
+        navigationToolbarButton.setImage(UIImage(systemName: "chevron.down.circle"), for: .normal)
+        navigationToolbarButton.addTarget(self, action: #selector(navigationToolbarButtonTapped), for: .touchUpInside)
+
+        saveButton.setImage(UIImage(systemName: "square.and.arrow.down"), for: .normal)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+
+        navigationItem.leftBarButtonItems = [
+            UIBarButtonItem(customView: inputDeviceButton),
+            UIBarButtonItem(customView: undoButton),
+            UIBarButtonItem(customView: redoButton)
+        ]
+
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(customView: navigationToolbarButton),
+            UIBarButtonItem(customView: toolPickerButton)
+        ]
+
+        navigationToolbarView?.buttons = [
+            saveButton
+        ]
+    }
+
+    private func updateNavigationBar(separatorHidden: Bool) {
+        guard let navigationController = navigationController as? NavigationController else { return }
+        navigationController.updateSeparator(hidden: separatorHidden)
+    }
+
+    private func animateNavigationToolbarView(show isShow: Bool) {
+        navigationToolbarButton.isUserInteractionEnabled = false
+        navigationToolbarViewContainer?.isHidden = false
+        navigationToolbarViewTopConstraint.constant = isShow ? .zero : -Const.NavigationToolbarView.height
+        isShow ? updateNavigationBar(separatorHidden: true) : ()
+        UIView.animate(withDuration: AnimationTime.quiteFast.rawValue, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            !isShow ? self.navigationToolbarViewContainer?.isHidden = true : ()
+            !isShow ? self.updateNavigationBar(separatorHidden: false) : ()
+            self.navigationToolbarButton.isUserInteractionEnabled = true
+        })
     }
 
     private func setupCanvas() {
@@ -202,3 +279,22 @@ extension DrawViewController: PKCanvasViewDelegate {}
 // MARK: - PKToolPickerObserver Extension
 
 extension DrawViewController: PKToolPickerObserver {}
+
+
+extension UIView {
+
+    // MARK: - Internal Methods
+
+    internal func adjustFrame(inView view: UIView) {
+        frame = view.bounds
+        view.addSubview(self)
+    }
+
+    internal func pinEdges(toView view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+    }
+}

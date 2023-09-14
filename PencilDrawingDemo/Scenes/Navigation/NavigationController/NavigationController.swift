@@ -30,16 +30,23 @@ class NavigationController: UINavigationController {
 
     // MARK: - Setup Methods
 
-    func setupUI() {
+    private func setupUI() {
         navigationBar.isTranslucent = true
 
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithDefaultBackground()
-        navBarAppearance.backgroundColor = .systemGray6
+        updateSeparator()
+    }
 
-        navigationBar.standardAppearance = navBarAppearance
-        navigationBar.scrollEdgeAppearance = navBarAppearance
-        navigationBar.compactAppearance = navBarAppearance
-        navigationBar.compactScrollEdgeAppearance = navBarAppearance
+    // MARK: - Setup Methods
+
+    func updateSeparator(hidden: Bool = false) {
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithDefaultBackground()
+        navigationBarAppearance.backgroundColor = .systemGray6
+        navigationBarAppearance.shadowColor = hidden ? .clear : .opaqueSeparator
+
+        navigationBar.standardAppearance = navigationBarAppearance
+        navigationBar.scrollEdgeAppearance = navigationBarAppearance
+        navigationBar.compactAppearance = navigationBarAppearance
+        navigationBar.compactScrollEdgeAppearance = navigationBarAppearance
     }
 }

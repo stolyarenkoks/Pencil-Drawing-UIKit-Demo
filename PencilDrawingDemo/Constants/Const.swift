@@ -49,6 +49,10 @@ enum Const {
 
     // MARK: - Views
 
+    enum NavigationToolbarView {
+        static let height: CGFloat = 48.0
+    }
+
     // MARK: - TableCells
 
     // MARK: - CollectionCells

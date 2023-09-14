@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C45AC5512AB2EE7400F196D5 /* NavigationToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45AC5502AB2EE7400F196D5 /* NavigationToolbarView.swift */; };
+		C45AC5532AB2EE8100F196D5 /* NavigationToolbarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C45AC5522AB2EE8100F196D5 /* NavigationToolbarView.xib */; };
 		C49799D42AAEF62B0003B794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49799D32AAEF62B0003B794 /* AppDelegate.swift */; };
 		C49799D62AAEF62B0003B794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49799D52AAEF62B0003B794 /* SceneDelegate.swift */; };
 		C49799DD2AAEF62C0003B794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C49799DC2AAEF62C0003B794 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C45AC5502AB2EE7400F196D5 /* NavigationToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationToolbarView.swift; sourceTree = "<group>"; };
+		C45AC5522AB2EE8100F196D5 /* NavigationToolbarView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NavigationToolbarView.xib; sourceTree = "<group>"; };
 		C49799D02AAEF62B0003B794 /* PencilDrawingDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PencilDrawingDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C49799D32AAEF62B0003B794 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C49799D52AAEF62B0003B794 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C45AC5542AB2EF2C00F196D5 /* NavigationToolbarView */ = {
+			isa = PBXGroup;
+			children = (
+				C45AC5502AB2EE7400F196D5 /* NavigationToolbarView.swift */,
+				C45AC5522AB2EE8100F196D5 /* NavigationToolbarView.xib */,
+			);
+			path = NavigationToolbarView;
+			sourceTree = "<group>";
+		};
 		C49799C72AAEF62B0003B794 = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +154,7 @@
 		C4DFA9782AAF1BB100790B48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C45AC5542AB2EF2C00F196D5 /* NavigationToolbarView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -244,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C45AC5532AB2EE8100F196D5 /* NavigationToolbarView.xib in Resources */,
 				C49799E02AAEF62C0003B794 /* LaunchScreen.storyboard in Resources */,
 				C4DFA9952AAF1C5500790B48 /* DrawViewController.storyboard in Resources */,
 				C49799DD2AAEF62C0003B794 /* Assets.xcassets in Resources */,
@@ -279,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C45AC5512AB2EE7400F196D5 /* NavigationToolbarView.swift in Sources */,
 				C4DFA96A2AAF19A700790B48 /* NavigationController.swift in Sources */,
 				C4DFA9972AAF1C5500790B48 /* DrawViewController.swift in Sources */,
 				C4DFA9942AAF1C5500790B48 /* DrawRouter.swift in Sources */,
