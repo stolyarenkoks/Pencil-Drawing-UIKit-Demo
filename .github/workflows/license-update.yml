@@ -2,8 +2,7 @@ name: license-update
 
 on:
   schedule:
-    - cron: '0 21 * * 5#2'  # 2nd Friday of the month at 9 PM
-    - cron: '0 22 * * 5#4'  # 4th Friday of the month at 10 PM
+    - cron: '0 21 * * 5'  # Every Friday at 9 PM
   workflow_dispatch:
 
 jobs:
@@ -17,6 +16,14 @@ jobs:
         run: |
           git config --global user.email "${{ secrets.EMAIL }}"
           git config --global user.name "${{ secrets.USER_NAME }}"
+
+      - name: Check if it is the 2nd or 4th Friday
+        run: |
+          WEEK_NUMBER=$(date +\"%U\")
+          if [ $((WEEK_NUMBER % 2)) -ne 0 ]; then
+            echo \"Not the 2nd or 4th Friday. Skipping.\"
+            exit 0
+          fi
 
       - name: Update LICENSE and README.md
         run: |
