@@ -18,19 +18,24 @@ jobs:
           git config --global user.name "${{ secrets.USER_NAME }}"
 
       - name: Check if it is the 2nd or 4th Friday
+        id: check_week
         run: |
           WEEK_NUMBER=$(date +%U | sed 's/^0*//')  # Remove leading zeros
           if [ $((WEEK_NUMBER % 2)) -ne 0 ]; then
             echo "Not the 2nd or 4th Friday. Skipping."
-            exit 0
+            echo "continue=false" >> $GITHUB_ENV
+          else
+            echo "continue=true" >> $GITHUB_ENV
           fi
 
       - name: Update LICENSE and README.md
+        if: env.continue == 'true'
         run: |
           chmod +x ./scripts/license-update.sh
           ./scripts/license-update.sh
 
       - name: Commit and push changes
+        if: env.continue == 'true'
         run: |
           git add LICENSE README.md
           git commit -m "Updated License and ReadMe files"
