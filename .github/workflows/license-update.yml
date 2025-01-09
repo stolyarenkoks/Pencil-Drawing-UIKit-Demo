@@ -19,9 +19,9 @@ jobs:
 
       - name: Check if it is the 2nd or 4th Friday
         run: |
-          WEEK_NUMBER=$(date +\"%U\")
+          WEEK_NUMBER=$(date +%U | sed 's/^0*//')  # Remove leading zeros
           if [ $((WEEK_NUMBER % 2)) -ne 0 ]; then
-            echo \"Not the 2nd or 4th Friday. Skipping.\"
+            echo "Not the 2nd or 4th Friday. Skipping."
             exit 0
           fi
 
