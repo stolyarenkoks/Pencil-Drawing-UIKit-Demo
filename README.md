@@ -4,8 +4,6 @@ Developed entirely natively using Swift and UIKit based on Clean Swift Architect
 
 ![Preview](preview.png)
 
-[Demo Video](demo.mov)
-
 ## Installation
 The project does not require additional installation, as no dependency manager is currently used.
 
@@ -61,4 +59,4 @@ In addition to the Scenes in the project, there are also general categories that
 You can read more about Clean Swift [here](https://clean-swift.com/).
 
 ## License
-Copyright © 2023 SKS. All rights reserved.
+Copyright © January 07, 2025 Konstantin Stolyarenko. All rights reserved.
