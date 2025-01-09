@@ -2,7 +2,8 @@ name: license-update
 
 on:
   schedule:
-    - cron: '0 20 * * 5'  # Every Friday at 8 PM
+    - cron: '0 21 * * 5#2'  # 2nd Friday of the month at 9 PM
+    - cron: '0 22 * * 5#4'  # 4th Friday of the month at 10 PM
   workflow_dispatch:
 
 jobs:
