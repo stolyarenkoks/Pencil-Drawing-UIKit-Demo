@@ -59,4 +59,4 @@ In addition to the Scenes in the project, there are also general categories that
 You can read more about Clean Swift [here](https://clean-swift.com/).
 
 ## License
-Copyright © January 30, 2026 Konstantin Stolyarenko. All rights reserved.
+Copyright © February 13, 2026 Konstantin Stolyarenko. All rights reserved.
